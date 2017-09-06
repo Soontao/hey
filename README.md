@@ -1,5 +1,7 @@
 # Hey Fork
 
+[![Build Status](https://ci.fornever.org/job/hey/badge/icon)](https://ci.fornever.org/job/hey/)
+
 a project like the Apache Bench, but written by golang
 
 > I rewrite the logic, now it will run series tests, concurrent config will be disabled
@@ -11,6 +13,8 @@ PLEASE NOTE THAT: requests number and concurrently will be controlled by program
 ```bash
 go get -u github.com/Soontao/hey
 ```
+
+or [download binary](https://download.fornever.org/hey/latest/)
 
 ## Usage
 
