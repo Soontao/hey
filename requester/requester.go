@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package requester provides commands to run load tests and display results.
+// Package requester provides commands to run load tests and display Results.
 package requester
 
 import (
@@ -50,7 +50,7 @@ type Work struct {
 
 	RequestBody []byte
 
-	// N is the total number of requests to make.
+	// N is the Total number of requests to make.
 	N int
 
 	// C is the concurrency level, the number of concurrent workers to run.
@@ -82,7 +82,7 @@ type Work struct {
 	// Optional.
 	ProxyAddr *url.URL
 
-	// Writer is where results will be written. If nil, results are written to stdout.
+	// Writer is where Results will be written. If nil, Results are written to stdout.
 	Writer io.Writer
 
 	results chan *result
@@ -99,7 +99,7 @@ func (b *Work) writer() io.Writer {
 
 // Run makes all the requests, prints the summary. It blocks until
 // all work is done.
-func (b *Work) Run() {
+func (b *Work) Run() *Report {
 	// append hey's user agent
 	ua := b.Request.UserAgent()
 	if ua == "" {
@@ -113,14 +113,16 @@ func (b *Work) Run() {
 	b.start = time.Now()
 
 	b.runWorkers()
-	b.Finish()
+	r := b.Finish()
+	r.finalize()
+	return r
 }
 
-func (b *Work) Finish() {
+func (b *Work) Finish() *Report {
 	b.stopCh <- struct{}{}
 	close(b.results)
 	total := time.Now().Sub(b.start)
-	newReport(b.writer(), b.N, b.results, b.Output, total).finalize()
+	return newReport(b.writer(), b.N, b.results, b.Output, total)
 }
 
 func (b *Work) makeRequest(c *http.Client) {

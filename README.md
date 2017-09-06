@@ -1,25 +1,40 @@
-![hey](http://i.imgur.com/szzD9q0.png)
+# Hey Fork
 
-[![Build Status](https://travis-ci.org/rakyll/hey.svg?branch=master)](https://travis-ci.org/rakyll/hey)
+a project like the Apache Bench, but written by golang
 
-hey is a tiny program that sends some load to a web application.
+> I rewrite the logic, now it will run series tests, concurrent config will be disabled
 
-hey was originally called boom and was influenced from Tarek Ziade's
-tool at [tarekziade/boom](https://github.com/tarekziade/boom). Using the same name was a mistake as it resulted in cases
-where binary name conflicts created confusion.
-To preserve the name for its original owner, we renamed this project to hey.
+PLEASE NOTE THAT: requests number and concurrently will be controlled by program, you could set the max concurrency by `-c`
 
 ## Installation
 
-    go get -u github.com/rakyll/hey
+```bash
+go get -u github.com/Soontao/hey
+```
 
 ## Usage
+
+just refer the protocol and port
+
+```bash
+hey -c 1000 http://localhost:8080
+```
+
+out:
+
+```bash
+concurrency:     50, RPS:  7687, req time avg:    5.50ms 
+concurrency:    100, RPS: 12978, req time avg:    6.94ms 
+concurrency:    200, RPS:  1331, req time avg:   69.47ms 
+concurrency:    500, RPS:  1206, req time avg:  274.38ms 
+concurrency:   1000, RPS:  1233, req time avg:  534.24ms 
+```
 
 hey runs provided number of requests in the provided concurrency level and prints stats.
 
 It also supports HTTP2 endpoints.
 
-```
+```bash
 Usage: hey [options...] <url>
 
 Options:
@@ -53,7 +68,5 @@ Options:
   -more                 Provides information on DNS lookup, dialup, request and
                         response timings.
 ```
-
-Previously known as [github.com/rakyll/boom](https://github.com/rakyll/boom).
 
 Note: Requires go 1.7 or greater.

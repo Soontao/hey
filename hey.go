@@ -27,7 +27,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/rakyll/hey/requester"
+	"github.com/Soontao/hey/requester"
 )
 
 const (
@@ -118,9 +118,9 @@ func main() {
 		usageAndExit("-n and -c cannot be smaller than 1.")
 	}
 
-	if num < conc {
-		usageAndExit("-n cannot be less than -c.")
-	}
+	//if num < conc {
+	//	usageAndExit("-n cannot be less than -c.")
+	//}
 
 	url := flag.Args()[0]
 	method := strings.ToUpper(*m)
@@ -194,29 +194,37 @@ func main() {
 		req.Host = *hostHeader
 	}
 
-	w := &requester.Work{
-		Request:            req,
-		RequestBody:        bodyAll,
-		N:                  num,
-		C:                  conc,
-		QPS:                q,
-		Timeout:            *t,
-		DisableCompression: *disableCompression,
-		DisableKeepAlives:  *disableKeepAlives,
-		DisableRedirects:   *disableRedirects,
-		H2:                 *h2,
-		ProxyAddr:          proxyURL,
-		Output:             *output,
+	testConcurrentNums := []int{50, 100, 200, 500, 1000, 2000, 3000, 5000, 10000}
+	for _, currentConcurrentNum := range testConcurrentNums {
+		if currentConcurrentNum > conc {
+			break
+		}
+
+		num := currentConcurrentNum * 10
+		concurrentNum := currentConcurrentNum
+
+		w := &requester.Work{
+			Request:            req,
+			RequestBody:        bodyAll,
+			N:                  num,
+			C:                  concurrentNum,
+			QPS:                q,
+			Timeout:            *t,
+			DisableCompression: *disableCompression,
+			DisableKeepAlives:  *disableKeepAlives,
+			DisableRedirects:   *disableRedirects,
+			H2:                 *h2,
+			ProxyAddr:          proxyURL,
+			Output:             *output,
+		}
+
+		c := make(chan os.Signal, 1)
+		signal.Notify(c, os.Interrupt)
+		r := w.Run()
+		fmt.Printf("concurrency: %6d, RPS: %5.0f, req time avg: %7.2fms \n", concurrentNum, r.RPS, r.Average*1000)
+
 	}
 
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt)
-	go func() {
-		<-c
-		w.Finish()
-		os.Exit(1)
-	}()
-	w.Run()
 }
 
 func errAndExit(msg string) {

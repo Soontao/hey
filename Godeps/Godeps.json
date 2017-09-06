@@ -1,0 +1,39 @@
+{
+	"ImportPath": "github.com/Soontao/hey",
+	"GoVersion": "go1.8",
+	"GodepVersion": "v79",
+	"Deps": [
+		{
+			"ImportPath": "golang.org/x/net/http2",
+			"Rev": "66aacef3dd8a676686c7ae3716979581e8b03c47"
+		},
+		{
+			"ImportPath": "golang.org/x/net/http2/hpack",
+			"Rev": "66aacef3dd8a676686c7ae3716979581e8b03c47"
+		},
+		{
+			"ImportPath": "golang.org/x/net/idna",
+			"Rev": "66aacef3dd8a676686c7ae3716979581e8b03c47"
+		},
+		{
+			"ImportPath": "golang.org/x/net/lex/httplex",
+			"Rev": "66aacef3dd8a676686c7ae3716979581e8b03c47"
+		},
+		{
+			"ImportPath": "golang.org/x/text/secure/bidirule",
+			"Rev": "bd91bbf73e9a4a801adbfb97133c992678533126"
+		},
+		{
+			"ImportPath": "golang.org/x/text/transform",
+			"Rev": "bd91bbf73e9a4a801adbfb97133c992678533126"
+		},
+		{
+			"ImportPath": "golang.org/x/text/unicode/bidi",
+			"Rev": "bd91bbf73e9a4a801adbfb97133c992678533126"
+		},
+		{
+			"ImportPath": "golang.org/x/text/unicode/norm",
+			"Rev": "bd91bbf73e9a4a801adbfb97133c992678533126"
+		}
+	]
+}
