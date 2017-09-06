@@ -6,7 +6,9 @@ a project like the Apache Bench, but written by golang
 
 > I rewrite the logic, now it will run series tests, concurrent config will be disabled
 
-PLEASE NOTE THAT: requests number and concurrently will be controlled by program, you could set the max concurrency by `-c`
+PLEASE NOTE THAT: 
+
+requests number and concurrently will be controlled by program, you could set the max concurrency by `-c`
 
 ## Installation
 
