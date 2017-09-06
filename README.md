@@ -20,21 +20,23 @@ or [download binary](https://download.fornever.org/hey/latest/)
 
 ## Usage
 
-just refer the protocol and port
+just set the protocol and port (http)
 
 ```bash
-hey -c 1000 http://localhost:8080
+hey localhost:8080
 ```
 
 out:
 
 ```bash
-concurrency:     50, RPS:  7687, req time avg:    5.50ms 
-concurrency:    100, RPS: 12978, req time avg:    6.94ms 
-concurrency:    200, RPS:  1331, req time avg:   69.47ms 
-concurrency:    500, RPS:  1206, req time avg:  274.38ms 
-concurrency:   1000, RPS:  1233, req time avg:  534.24ms 
+concurrency:    50, RPS:  8058, req time avg:    5.30ms
+concurrency:   100, RPS: 10862, req time avg:    8.28ms
+concurrency:   200, RPS: 10687, req time avg:   15.70ms
+concurrency:   500, RPS: 10344, req time avg:   44.89ms
+concurrency:  1000, RPS: 10420, req time avg:   86.42ms
 ```
+
+set max concurrency with `-c` param
 
 hey runs provided number of requests in the provided concurrency level and prints stats.
 

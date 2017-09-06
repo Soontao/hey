@@ -47,8 +47,8 @@ var (
 
 	output = flag.String("o", "", "")
 
-	c = flag.Int("c", 100, "")
-	n = flag.Int("n", 1000, "")
+	c = flag.Int("c", 1000, "")
+	n = flag.Int("n", 10000, "")
 	q = flag.Int("q", 0, "")
 	t = flag.Int("t", 20, "")
 
@@ -110,19 +110,14 @@ func main() {
 	}
 
 	runtime.GOMAXPROCS(*cpus)
-	num := *n
+
 	conc := *c
 	q := *q
 
-	if num <= 0 || conc <= 0 {
-		usageAndExit("-n and -c cannot be smaller than 1.")
-	}
-
-	//if num < conc {
-	//	usageAndExit("-n cannot be less than -c.")
-	//}
-
 	url := flag.Args()[0]
+	if !strings.HasPrefix(url, "http") {
+		url = "http://" + url
+	}
 	method := strings.ToUpper(*m)
 
 	// set content-type
