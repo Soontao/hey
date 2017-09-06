@@ -47,8 +47,8 @@ var (
 
 	output = flag.String("o", "", "")
 
-	c = flag.Int("c", 50, "")
-	n = flag.Int("n", 200, "")
+	c = flag.Int("c", 100, "")
+	n = flag.Int("n", 1000, "")
 	q = flag.Int("q", 0, "")
 	t = flag.Int("t", 20, "")
 
@@ -194,7 +194,7 @@ func main() {
 		req.Host = *hostHeader
 	}
 
-	testConcurrentNums := []int{50, 100, 200, 500, 1000, 2000, 3000, 5000, 10000}
+	testConcurrentNums := []int{50, 100, 200, 500, 1000, 2000, 3000, 5000, 10000, 30000, 50000, 99999}
 	for _, currentConcurrentNum := range testConcurrentNums {
 		if currentConcurrentNum > conc {
 			break
@@ -221,7 +221,7 @@ func main() {
 		c := make(chan os.Signal, 1)
 		signal.Notify(c, os.Interrupt)
 		r := w.Run()
-		fmt.Printf("concurrency: %6d, RPS: %5.0f, req time avg: %7.2fms \n", concurrentNum, r.RPS, r.Average*1000)
+		fmt.Printf("concurrency: %5d, RPS: %5.0f, req time avg: %7.2fms \n", concurrentNum, r.RPS, r.Average*1000)
 
 	}
 
